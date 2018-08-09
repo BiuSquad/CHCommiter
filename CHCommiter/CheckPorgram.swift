@@ -54,8 +54,26 @@ class CheckPorgram {
         exit(0)
     }
     
+    static var tty: String {
+        return Shell(launchPath: "tty").run().outPipeMsg ?? "/dev/ttys001"
+    }
+    
     private class func check(_ commits: [String]) {
-        let pattern = "(\\+ [a-zA-Z0-9]+ )*.+\\(.*\\): .+"
+        
+        for commit in commits {
+            if !regx(commit, pattern: "(\\+ [a-zA-Z0-9]+ )*.+\\(.*\\): .+") {
+                if !regx(commit, pattern: "Merge branch '.+' into '.+'") { //maybe is merge
+                    console.printNotPassCommitPrompt(commit)
+                    exit(1)
+                }
+            }
+        }
+        console.printAllPassedPrompt()
+        exit(0)
+    }
+    
+    private class func regx(_ commit: String,
+                            pattern: String) -> Bool {
         let rex: NSRegularExpression
         do {
             rex = try NSRegularExpression(pattern: pattern, options: [])
@@ -63,17 +81,11 @@ class CheckPorgram {
             console.writeMessage(error.localizedDescription, to: .error)
             exit(1)
         }
-        for commit in commits {
-            if let _ = rex.firstMatch(in: commit, options: [], range: NSRange(location: 0, length: commit.count)) {
-                
-            } else {
-                console.printNotPassCommitPrompt(commit)
-                let skip = console.getInput()
-//                if skip != "s" { exit(0) }
-                exit(1)
-            }
+        if let _ = rex.firstMatch(in: commit, options: [], range: NSRange(location: 0, length: commit.count)) {
+            return true
+        } else {
+            return false
         }
-        console.printAllPassedPrompt()
     }
 }
 
@@ -91,7 +103,7 @@ fileprivate extension ConsoleIO {
     func printNotPassCommitPrompt(_ commit: String) {
         writeMessage(self.isEnglish ? "❌Below commits subject didn't pass the regx check." : "❌以下Commits並未通過正則檢查")
         console.writeMessage(commit)
-        writeMessage(self.isEnglish ? "Input 's' to skip, other to close proces." : "輸入 's' 忽略, 輸入其他的結束")
+        //writeMessage(self.isEnglish ? "Input 's' to skip, other to close proces." : "輸入 's' 忽略, 輸入其他的結束")
     }
     
     func printPassedCommit(_ commit: String) {
