@@ -10,36 +10,52 @@ import Foundation
 
 class CheckPorgram {
     
-    public class func main() {
+    @discardableResult
+    public class func main(_ shouldClose: Bool = false) -> Bool {
         let commits = cherry()
         if commits.count > 0 {
             check(commits)
+        } else {
+            console.printEmptyCherryMessage()
         }
+        if shouldClose {
+            exit(0)
+        }
+        return commits.count > 0
     }
     
     private class func cherry() -> [String] {
-        let cherryMessage = Shell(launchPath: "git",
-                                  arguments: ["cherry", "-v"],
-                                  errorHandler: { (errMsg) in
-                                    guard let msg = errMsg else { return }
-                                    console.writeMessage(msg, to: .error)
-                                    exit(1)
-        }).run().outPipeMsg
-        if let cherryMsg = cherryMessage {
+        let cherryShell = Shell(launchPath: "git",
+                                  arguments: ["cherry", "-v"]).run()
+        if let err = cherryShell.errPipeMsg {
+            console.writeMessage(err, to: .error)
+            return log()
+        } else if let cherryMsg = cherryShell.outPipeMsg {
             let commits = cherryMsg.split(separator: "\n")
             return commits.map({ String($0) })
         } else {
-            console.printEmptyCherryMessage()
-            let pushInput = console.getInput()
-            if pushInput == "y" || pushInput == "Y" {
-                return []
-            }
+            return []
         }
-        exit(1)
+    }
+    
+    private class func log() -> [String] {
+        console.printTryLog()
+        let logMessage = Shell(launchPath: "git",
+                                  arguments: ["log", "master..", "--pretty=format:%s"],
+                                  errorHandler: { (errMsg) in
+                                    guard let msg = errMsg else { return }
+                                    console.writeMessage(msg, to: .error)
+                                    exit(0)
+        }).run().outPipeMsg
+        if let logMsg = logMessage {
+            let commits = logMsg.split(separator: "\n")
+            return commits.map({ String($0)})
+        }
+        exit(0)
     }
     
     private class func check(_ commits: [String]) {
-        let pattern = "\\+ [a-zA-Z0-9]+ .+\\(.*\\): .+"
+        let pattern = "(\\+ [a-zA-Z0-9]+ )*.+\\(.*\\): .+"
         let rex: NSRegularExpression
         do {
             rex = try NSRegularExpression(pattern: pattern, options: [])
@@ -53,19 +69,23 @@ class CheckPorgram {
             } else {
                 console.printNotPassCommitPrompt(commit)
                 let skip = console.getInput()
-                if skip != "s" { exit(0) }
+//                if skip != "s" { exit(0) }
+                exit(1)
             }
         }
         console.printAllPassedPrompt()
     }
-    
 }
 
 fileprivate extension ConsoleIO {
     
     func printEmptyCherryMessage() {
         writeMessage(self.isEnglish ? "❌Cannot found any commits (compare to HEAD) should be check." : "❌無任何新增的Commit可被檢查格式")
-        writeMessage(self.isEnglish ? "Continue git push anyway? (y/n)" : "仍要 git push嗎？ (y/n)")
+    }
+    
+    func printTryLog() {
+        writeMessage("git cherry fail❗️")
+        writeMessage("try git log⛔️")
     }
     
     func printNotPassCommitPrompt(_ commit: String) {

@@ -11,7 +11,13 @@ import Foundation
 class PushProgram {
     
     public class func main() {
-        CheckPorgram.main()
+        if !CheckPorgram.main() {
+            console.ignoreWarn()
+            let pushInput = console.getInput()
+            if pushInput != "y" || pushInput != "Y" {
+                return
+            }
+        }
         push()
     }
     
@@ -22,6 +28,14 @@ class PushProgram {
             exit(1)
         }).run()
         console.writeMessage(pushShell.outPipeMsg ?? "push done")
+    }
+    
+}
+
+fileprivate extension ConsoleIO {
+
+    func ignoreWarn() {
+        writeMessage(self.isEnglish ? "Continue git push anyway? (y/n)" : "仍要 git push嗎？ (y/n)")
     }
     
 }

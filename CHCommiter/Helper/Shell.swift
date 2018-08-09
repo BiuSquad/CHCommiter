@@ -11,8 +11,9 @@ import Foundation
 class Shell {
     
     public var outPipeMsg: String?
-    public let errorHandler: ((String?) -> Void)?
+    public var errPipeMsg: String?
     
+    fileprivate let errorHandler: ((String?) -> Void)?
     fileprivate let errPipe = Pipe()
     fileprivate let outPipe = Pipe()
     fileprivate let process = Process()
@@ -43,7 +44,8 @@ class Shell {
         }
         process.waitUntilExit()
         //
-        self.errorHandler?(errPipe.getPipeMessage())
+        self.errPipeMsg = errPipe.getPipeMessage()
+        self.errorHandler?(errPipeMsg)
         self.outPipeMsg = outPipe.getPipeMessage()
         return self
     }

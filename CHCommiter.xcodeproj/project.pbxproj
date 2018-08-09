@@ -15,6 +15,7 @@
 		4F39247B211AC595006286D2 /* CommiterProgram.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F39247A211AC595006286D2 /* CommiterProgram.swift */; };
 		4F39247D211AC6AC006286D2 /* PushProgram.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F39247C211AC6AC006286D2 /* PushProgram.swift */; };
 		4FC59E52211BE6BF003475DB /* CheckPorgram.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FC59E51211BE6BF003475DB /* CheckPorgram.swift */; };
+		4FC59E54211C1F8D003475DB /* CheckInjectProgram.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FC59E53211C1F8D003475DB /* CheckInjectProgram.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -39,6 +40,7 @@
 		4F39247A211AC595006286D2 /* CommiterProgram.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommiterProgram.swift; sourceTree = "<group>"; };
 		4F39247C211AC6AC006286D2 /* PushProgram.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushProgram.swift; sourceTree = "<group>"; };
 		4FC59E51211BE6BF003475DB /* CheckPorgram.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckPorgram.swift; sourceTree = "<group>"; };
+		4FC59E53211C1F8D003475DB /* CheckInjectProgram.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckInjectProgram.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,6 +78,7 @@
 				4F39247A211AC595006286D2 /* CommiterProgram.swift */,
 				4F39247C211AC6AC006286D2 /* PushProgram.swift */,
 				4FC59E51211BE6BF003475DB /* CheckPorgram.swift */,
+				4FC59E53211C1F8D003475DB /* CheckInjectProgram.swift */,
 			);
 			path = CHCommiter;
 			sourceTree = "<group>";
@@ -170,6 +173,7 @@
 				4F0BF769211829C30086BB79 /* ConsoleIO.swift in Sources */,
 				4F39247B211AC595006286D2 /* CommiterProgram.swift in Sources */,
 				4FC59E52211BE6BF003475DB /* CheckPorgram.swift in Sources */,
+				4FC59E54211C1F8D003475DB /* CheckInjectProgram.swift in Sources */,
 				4F0BF767211821EA0086BB79 /* Shell.swift in Sources */,
 				4F0BF76021181A120086BB79 /* main.swift in Sources */,
 				4F0BF76B21182AC90086BB79 /* Parameter.swift in Sources */,

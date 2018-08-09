@@ -23,7 +23,7 @@ case .check(let isInject):
     if isInject {
         
     } else {
-        CheckPorgram.main()
+        CheckPorgram.main(true)
     }
 }
-exit(1)
+exit(0)

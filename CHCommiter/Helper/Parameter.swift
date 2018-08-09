@@ -56,7 +56,7 @@ class Parameter {
         
         func exits() -> Never {
             ConsoleIO().printUsage()
-            exit(0)
+            exit(1)
         }
         
         var nowMode: Mode?
