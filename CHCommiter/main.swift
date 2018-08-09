@@ -21,7 +21,7 @@ case .push:
     PushProgram.main()
 case .check(let isInject):
     if isInject {
-        
+        CheckInjectProgram.main()
     } else {
         CheckPorgram.main(true)
     }
