@@ -35,7 +35,7 @@ class PushProgram {
 fileprivate extension ConsoleIO {
 
     func ignoreWarn() {
-        writeMessage(self.isEnglish ? "Continue git push anyway? (y/n)" : "仍要 git push嗎？ (y/n)")
+        writeMessage(self.isEnglish ? "Continue git push anyway? (y/n)" : "仍要 git push吗？ (y/n)")
     }
     
 }

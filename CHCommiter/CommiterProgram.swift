@@ -62,7 +62,7 @@ class CommiterProgram {
             checkEmptyStr.removeAll { (c) -> Bool in
                 return c == " "
             }
-            if checkEmptyStr.count == 0 { console.writeMessage("此處必填"); commitDescription = "" }
+            if checkEmptyStr.count == 0 { console.writeMessage("此处必填"); commitDescription = "" }
         }
         
         ///long Description
@@ -87,13 +87,13 @@ class CommiterProgram {
 }
 
 fileprivate extension ConsoleIO {
-  
+    
     func printAddAllPrompt() {
-        writeMessage(self.isEnglish ? "automatically git add ." : "已自動 git add .")
+        writeMessage(self.isEnglish ? "automatically git add ." : "已自动 git add .")
     }
     
     func printCategoryPrompt() {
-        writeMessage(self.isEnglish ? "📝Select the type of change that you're commiting" : "📝請選擇你本次Commit的類別")
+        writeMessage(self.isEnglish ? "📝Select the type of change that you're commiting" : "📝请选择你本次Commit的类别")
         for (idx, type) in CommitStyle.CommitType.allCases.enumerated() {
             let info = type.getInfo(isEnglish: self.isEnglish)
             writeMessage("\(idx):\(info.0)  \(info.1)")
@@ -101,12 +101,12 @@ fileprivate extension ConsoleIO {
     }
     
     func printCategoryFail() {
-        writeMessage(self.isEnglish ? "❗️Please input an avaliable option" : "❗️請輸入指定選項", to: .error)
+        writeMessage(self.isEnglish ? "❗️Please input an avaliable option" : "❗️请输入指定选项", to: .error)
     }
     
     @discardableResult
     func printModulePrompt() -> [String] {
-        writeMessage(self.isEnglish ? "What is the scope of this change (e.g. component or file name)? (press enter to skip)" :  "請選擇或直接輸入負責的業務線/模塊/主要改動檔案名稱 (空白跳過)")
+        writeMessage(self.isEnglish ? "What is the scope of this change (e.g. component or file name)? (press enter to skip)" :  "请选择或直接输入负责的业务线/模块/主要改动档案名称 (空白跳过)")
         //read plist
         guard let base = Shell(launchPath: "pwd").run().outPipeMsg else { writeMessage("Cannot get Url", to: .error); exit(1) }
         let path = URL(fileURLWithPath: base).appendingPathComponent("moduleList.plist")
@@ -125,20 +125,20 @@ fileprivate extension ConsoleIO {
                 writeMessage("\(idx): \(title) - \(descri)")
                 plistDicArr.append(title)
             }
-            writeMessage("\(plistDicArr.count):" + "\(self.isEnglish ? "Show files changed" : "展示檔案更動") - git checkout")
+            writeMessage("\(plistDicArr.count):" + "\(self.isEnglish ? "Show files changed" : "展示档案更动") - git checkout")
             return plistDicArr
         } else {
             writeMessage("Not Found plist📙")
-            writeMessage("0:" + "\(self.isEnglish ? "Show files changed" : "展示檔案更動") - git checkout")
+            writeMessage("0:" + "\(self.isEnglish ? "Show files changed" : "展示档案更动") - git checkout")
             return []
         }
     }
     
     func printDescriptionPrompt() {
-        writeMessage(self.isEnglish ? "😺Write a short, imperative tense description of the change:" : "😺重點描述本次改動(必填)")
+        writeMessage(self.isEnglish ? "😺Write a short, imperative tense description of the change:" : "😺重点描述本次改动(必填)")
     }
     
     func printLongDescriptionPrompt() {
-        writeMessage(self.isEnglish ? "😺Provide a longer description of the change: (press enter to skip):" : "😺詳細描述本次改動(空白略過)")
+        writeMessage(self.isEnglish ? "😺Provide a longer description of the change: (press enter to skip):" : "😺详细描述本次改动(空白略过)")
     }
 }

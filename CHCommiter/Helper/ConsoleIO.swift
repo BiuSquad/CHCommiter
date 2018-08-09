@@ -55,7 +55,7 @@ class ConsoleIO {
 extension ConsoleIO {
     
     public func printHelloMessage() {
-        writeMessage(self.isEnglish ? "🙋🏻‍♂️Welecome to CHCommiter" : "🙋🏻‍♂️歡迎使用CHCommiter")
+        writeMessage(self.isEnglish ? "🙋🏻‍♂️Welecome to CHCommiter" : "🙋🏻‍♂️欢迎使用CHCommiter")
     }
     
     public func debug_Env() {

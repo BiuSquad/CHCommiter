@@ -92,7 +92,7 @@ class CheckPorgram {
 fileprivate extension ConsoleIO {
     
     func printEmptyCherryMessage() {
-        writeMessage(self.isEnglish ? "❌Cannot found any commits (compare to HEAD) should be check." : "❌無任何新增的Commit可被檢查格式")
+        writeMessage(self.isEnglish ? "❌Cannot found any commits (compare to HEAD) should be check." : "❌无任何新增的Commit可被检查格式")
     }
     
     func printTryLog() {
@@ -101,17 +101,17 @@ fileprivate extension ConsoleIO {
     }
     
     func printNotPassCommitPrompt(_ commit: String) {
-        writeMessage(self.isEnglish ? "❌Below commits subject didn't pass the regx check." : "❌以下Commits並未通過正則檢查")
+        writeMessage(self.isEnglish ? "❌Below commits subject didn't pass the regx check." : "❌以下Commits并未通过正则检查")
         console.writeMessage(commit)
-        //writeMessage(self.isEnglish ? "Input 's' to skip, other to close proces." : "輸入 's' 忽略, 輸入其他的結束")
+        //writeMessage(self.isEnglish ? "Input 's' to skip, other to close proces." : "输入 's' 忽略, 输入其他的结束")
     }
     
     func printPassedCommit(_ commit: String) {
-        writeMessage(commit + (self.isEnglish ? "........Passed⭕️" : ".........通過⭕️"))
+        writeMessage(commit + (self.isEnglish ? "........Passed⭕️" : ".........通过⭕️"))
     }
     
     func printAllPassedPrompt() {
-        writeMessage(self.isEnglish ? "All commits passed the checked🎉" : "Commits皆通過正則檢查🎉")
+        writeMessage(self.isEnglish ? "All commits passed the checked🎉" : "Commits皆通过正则检查🎉")
     }
     
 }
